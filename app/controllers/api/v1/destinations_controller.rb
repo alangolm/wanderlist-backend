@@ -12,7 +12,9 @@ class Api::V1::DestinationsController < ApplicationController
 
   def create
     @destination = Destination.new(destination_params)
+    @destination.user_id = 1
     if @destination.save
+      # byebug
       render json: @destination
     end
   end
@@ -23,7 +25,7 @@ class Api::V1::DestinationsController < ApplicationController
       render json: @destination, status: :accepted
     else
       render json: { errors: @destination.errors.full_messages }, status: :unprocessible_entity
-    end  
+    end
   end
 
   def destroy
@@ -37,7 +39,7 @@ class Api::V1::DestinationsController < ApplicationController
   end
 
   def destination_params
-    params.require(:destination).permit(:title, :description, :date, :user_id, :latitude, :longitude, :city, :country)
+    params.require(:destination).permit(:title, :description, :date, :latitude, :longitude, :city, :country)
   end
 
 end

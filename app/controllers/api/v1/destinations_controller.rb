@@ -3,7 +3,7 @@ class Api::V1::DestinationsController < ApplicationController
 
   def index
     @destinations = Destination.all
-    render json: @destinations
+    render json: @destinations.order(:id)
   end
 
   def show
@@ -21,7 +21,7 @@ class Api::V1::DestinationsController < ApplicationController
 
   def update
     @destination.update(destination_params)
-    if @destination.save
+    if @destination.valid?
       render json: @destination, status: :accepted
     else
       render json: { errors: @destination.errors.full_messages }, status: :unprocessible_entity
@@ -39,7 +39,7 @@ class Api::V1::DestinationsController < ApplicationController
   end
 
   def destination_params
-    params.require(:destination).permit(:title, :description, :date, :latitude, :longitude, :city, :country)
+    params.require(:destination).permit(:title, :description, :date, :latitude, :longitude, :city, :state, :country)
   end
 
 end

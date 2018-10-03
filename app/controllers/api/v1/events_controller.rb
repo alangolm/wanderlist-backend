@@ -3,7 +3,7 @@ class Api::V1::EventsController < ApplicationController
 
   def index
     @events = Event.all
-    render json: @event
+    render json: @events
   end
 
   def show
@@ -23,7 +23,7 @@ class Api::V1::EventsController < ApplicationController
       render json: @event, status: :accepted
     else
       render json: { errors: @event.errors.full_messages }, status: :unprocessible_entity
-    end 
+    end
   end
 
   def destroy

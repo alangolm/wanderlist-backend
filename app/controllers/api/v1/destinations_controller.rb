@@ -3,7 +3,7 @@ class Api::V1::DestinationsController < ApplicationController
 
   def index
     @destinations = Destination.all
-    render json: @destinations.order(:id)
+    render json: @destinations.order('created_at DESC')
   end
 
   def show
